@@ -44,20 +44,24 @@ class _BodyScreenBallState extends State<BodyScreenBall>
     super.initState();
 
     /// Инициализация отслеживания встряхивания телефона
-    ShakeDetector detector = ShakeDetector.autoStart(
-      onPhoneShake: () {
-        zoomed = !zoomed;
-        if (_controller.isCompleted) {
-          _controller.reverse();
-        } else {
-          _controller.forward(from: 0.0);
-        }
-      },
-      minimumShakeCount: 1,
-      shakeSlopTimeMS: 500,
-      shakeCountResetTime: 3000,
-      shakeThresholdGravity: 2.7,
-    );
+    try {
+      ShakeDetector detector = ShakeDetector.autoStart(
+        onPhoneShake: () {
+          zoomed = !zoomed;
+          if (_controller.isCompleted) {
+            _controller.reverse();
+          } else {
+            _controller.forward(from: 0.0);
+          }
+        },
+        minimumShakeCount: 1,
+        shakeSlopTimeMS: 500,
+        shakeCountResetTime: 3000,
+        shakeThresholdGravity: 2.7,
+      );
+    } catch (e) {
+      /// Ошибку не обрабатываем
+    }
 
     /// Инициализация контроллера увеличения изображения шара от 1 до 2.8
     _controller = AnimationController(
@@ -96,8 +100,8 @@ class _BodyScreenBallState extends State<BodyScreenBall>
             ),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          // width: MediaQuery.of(context).size.width,
+          // height: MediaQuery.of(context).size.height,
           child: GestureDetector(
             onTap: () {
               /// При нажатии на шаре включаем анимацию увеличения шара

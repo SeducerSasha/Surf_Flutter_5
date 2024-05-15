@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:surf_flutter_courses_template/main_screen.dart';
 
 void main() async {
+  /// Добавляем локализацию текста
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(EasyLocalization(
